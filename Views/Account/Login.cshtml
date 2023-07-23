@@ -1,0 +1,78 @@
+﻿@model LMS.Models.ViewModel.LoginModel
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-4 offset-4 border border-primary rounded pl-5 pr-5 pb-5">
+           @* <div class="text-center">
+                <a class="text-light btn btn-primary font-weight-bold" asp-action="SignUp" asp-controller="Account">Sign Up</a>
+            </div>*@
+            <form method="post" asp-action="Login">
+
+                <div class="form-group m-2">
+                    <label asp-for="Username"></label>
+                    <input type="text" asp-for="Username" placeholder="Enter Username" class="form-control form-text" autocomplete="off" />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input id="password" type="password" asp-for="Password" placeholder="Enter Password" class="form-control form-text" autocomplete="off" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <i id="open" class="fa fa-eye float-end" style="margin-top:-25px;margin-right:6px;cursor:pointer"></i>
+                    <i id="close" class="fa fa-eye-slash float-end" style="margin-top:-25px;margin-right:6px;display:none;cursor:pointer;"></i>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" asp-for="IsActive" />
+                    <label asp-for="IsActive"></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" class="btn btn-outline-success mb-2 mt-2" value="Log In" />
+                </div>
+            </form>
+
+
+            <div class="text-center">
+                <a class="text-primary" asp-action="ForgotUsername">Forgot Username?</a>
+                <a class="text-primary" asp-action="Forgotpassword">Forgot Password?</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/code.jquery.com_jquery-3.7.0.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#open").click(function () {
+            $("#open").hide();
+            $("#close").show();
+            $("#password").attr("type", "text");
+        });
+
+        $("#close").click(function () {
+            $("#close").hide();
+            $("#open").show();
+            $("#password").attr("type", "password");
+        });
+
+    });
+</script>
+
+
+<script type="text/javascript">
+    $(function () {
+        var msg = '@TempData["SuccessMessage"]' ;
+        var err = '@TempData["ErrorMessage"]';
+        if (msg != null && msg != "") {
+            alert(msg);
+            window.location.href = "@Url.Action("Index", "Employees")";
+        }
+        if (err != null && err != "") {
+            alert(err);
+            //window.location.href = "@Url.Action("Login", "Account")";
+        }
+    });
+</script>

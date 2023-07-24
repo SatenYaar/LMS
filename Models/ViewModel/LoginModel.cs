@@ -13,7 +13,6 @@ namespace LMS.Models.ViewModel
         [StringLength(8, ErrorMessage = "Password must be 8 characters long.", MinimumLength = 8)]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me")]
-        public bool IsActive { get; set; }
+   
     }
 }

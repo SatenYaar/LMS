@@ -4,6 +4,7 @@ namespace LMS.Models.ViewModel
 {
     public class SignUpModel
     {
+        public int Id { get; set; }
         [Required(ErrorMessage = "Username is required.")]
         public string Username { get; set; }
 
@@ -25,23 +26,7 @@ namespace LMS.Models.ViewModel
 
         public bool IsActive { get; set; }
 
-        //public int Id { get; set; }
-        //[Required(ErrorMessage = "Username cannot be Blank")]
-        //public string? Username { get; set; }
-        //[Required(ErrorMessage = "Email is Required")]
-        //public string? Email { get; set; }
-
-        //public long Mobile { get; set; }
-        //[Required(ErrorMessage = "Password cannot be Blank")]
-        //public string? Password { get; set; }
-        //[Compare("Password")]
-        //[Required(ErrorMessage = "Confirm password not Matched")]
-        //public string? ConfirmPassword { get; set; }
-        //[Required(ErrorMessage = "Checkbox need to selet")]
-        //public bool IsActive { get; set; }
-
-        //[Display(Name = "Remember me")]
-        //public bool IsRemember { get; set; }
+     
     }
 }
 

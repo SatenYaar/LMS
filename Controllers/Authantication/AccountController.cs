@@ -135,63 +135,6 @@ namespace LMS.Controllers.Authantication
             }
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Login(LoginModel login)
-        //{
-
-        //    if (ModelState.IsValid)
-        //    {
-
-        //        GetBaseUrl();
-        //        sUserCode = Convert.ToString(HttpUtility.ParseQueryString(Request.QueryString.ToString()).Get("UId"));
-        //        if (string.IsNullOrEmpty(sUserCode))
-        //        {
-        //            sUserCode = "123456";
-        //        }
-        //        string mess = string.Empty;
-        //        string sTokenUrl = sBU + "GenerateToken" + "?sUsrCode=" + sUserCode;
-        //        string sBaseUrl = sBU + "api/Account/LoginUser";
-        //        APIResponse response = await _apiservice.LoginPostAPI(sBaseUrl, sTokenUrl, login);
-        //        if (response.StatusCode == System.Net.HttpStatusCode.OK)
-        //        {
-        //            data = JsonConvert.DeserializeObject<LoginModel>(response.Result);
-        //            if (data != null)
-        //            {
-        //                if (data.Username == login.Username && data.Password == login.Password)
-        //                {
-        //                    var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, login.Username) },
-        //                               CookieAuthenticationDefaults.AuthenticationScheme);
-        //                    var principal = new ClaimsPrincipal(identity);
-        //                    HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-        //                    HttpContext.Session.SetString("Username", login.Username);
-        //                    TempData["SuccessMessage"] = "Login successfully.";
-        //                    return RedirectToAction("Index", "Employees");
-        //                }
-        //                else
-        //                {
-        //                    TempData["ErrorMessage"] = "Invalid password.";
-        //                    return View(login);
-        //                }
-        //            }
-        //            else
-        //            {
-        //                TempData["ErrorMessage"] = "Invalid user or password.";
-        //                return View(login);
-        //            }
-        //        }
-        //        else
-        //        {
-
-        //            return View(login);
-        //        }
-
-        //    }
-        //    else
-        //    {
-        //        return View(login);
-        //    }
-
-        //}
         public IActionResult Logout()
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

@@ -1,51 +1,52 @@
 ﻿@model LMS.Models.ViewModel.SignUpModel
 
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-
-<div class="container">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<div class="container-fluid">
     <div class="row">
         <div class="col-6 offset-3 border border-primary rounded ">
             <div class="text-center">
                 <h1 class="text-success">
-                   Registration Form
+                    Registration Form
                 </h1>
             </div>
             <form method="post" asp-action="SignUp">
-
-                <div class="form-group">
+                <div class="form-group m-1">
                     <label asp-for="Username"></label>
                     <input type="text" asp-for="Username" placeholder="Enter Username" class="form-control form-text" autocomplete="off" />
                     <span asp-validation-for="Username" class="text-danger"></span>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group m-1">
                     <label asp-for="Email"></label>
                     <input type="text" asp-for="Email" placeholder="Enter Email" class="form-control form-text" autocomplete="off" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group m-1">
                     <label asp-for="Mobile"></label>
                     <input type="text" asp-for="Mobile" placeholder="Enter Mobile Number" class="form-control form-text" autocomplete="off" />
                     <span asp-validation-for="Mobile" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group m-">
                     <label asp-for="Password"></label>
-                    <input type="password" asp-for="Password" placeholder="Enter Password" class="form-control form-text" autocomplete="off" />
+                    <input type="password" id="password" asp-for="Password" placeholder="Enter Password" class="form-control form-text" autocomplete="off" />
                     <span asp-validation-for="Password" class="text-danger"></span>
+                    <i id="open" class="fa fa-eye float-end" style="margin-top:-25px;margin-right:6px;cursor:pointer"></i>
+                    <i id="close" class="fa fa-eye-slash float-end" style="margin-top:-25px;margin-right:6px;display:none;cursor:pointer;"></i>
                 </div>
-                <div class="form-group">
+                <div class="form-group m-">
                     <label asp-for="ConfirmPassword"></label>
                     <input type="password" asp-for="ConfirmPassword" placeholder="Enter Confirm Password" class="form-control form-text" autocomplete="off" />
                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
 
-                <div class="form-group">
+               @* <div class="form-group">
                     <input type="checkbox" asp-for="IsActive" />
                     <label asp-for="IsActive"></label>
                     <span asp-validation-for="IsActive" class="text-danger"></span>
-                </div>
+                </div>*@
                 <div class="form-group">
-                    <input type="submit" class="btn btn-success btn-lg mb-1 float-lg-end mt-2" value="Registration" />
+                    <input type="submit" class="btn btn-success btn-lg mb-1 float-lg-end mt-2 " value="Registration" />
                 </div>
 
             </form>
@@ -54,21 +55,37 @@
         </div>
     </div>
 </div>
+<script src="~/js/code.jquery.com_jquery-3.7.0.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#open").click(function () {
+
+            $("#open").hide();
+            $("#close").show();
+            $("#password").attr("type", "text");
+        });
+
+        $("#close").click(function () {
+            $("#close").hide();
+            $("#open").show();
+            $("#password").attr("type", "password");
+        });
+
+    });
+</script>
 <script type="text/javascript">
     $(function () {
         var msg = '@TempData["result"]';
         var err = '@TempData["error"]';
         if (msg != null && msg != "") {
-          
+
             alert(msg);
             window.location.href = "@Url.Action("Login", "Account")";
         }
-
         if (err != null && err != "") {
-       
             alert(err);
-            
-          //  window.location.href = "@Url.Action("SignUp", "Account")";
+             window.location.href = "@Url.Action("SignUp", "Account")";
         }
     });
 </script>

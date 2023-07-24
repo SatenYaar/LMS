@@ -6,8 +6,8 @@ $(document).ready(function () {
   
     //var table = new DataTable('#tblEmpList');
 
-    new DataTable('#tblEmpList', {});
+    new DataTable('#tblEmpList');
         //dom: 'Bfrtip',
         //buttons: ['excel', 'pdf', 'print'],
-    });
+    
 });

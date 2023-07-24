@@ -1,23 +1,31 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+        window.onclick = function (event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - LMS</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/LMS.styles.css" asp-append-version="true" />
-
     <link href="~/css/cdn.datatables.net_1.13.5_css_jquery.datatables.min.css" rel="stylesheet" />
-    <link href="~/css/cdn.datatables.net_buttons_2.4.1_css_buttons.datatables.min.css" rel="stylesheet" />
-
     <script src="~/js/code.jquery.com_jquery-3.7.0.js"></script>
-    @*  <script src="~/js/cdn.datatables.net_buttons_2.4.1_js_buttons.html5.min.js"></script>
-    <script src="~/js/cdn.datatables.net_buttons_2.4.1_js_buttons.print.min.js"></script>
-    <script src="~/js/cdn.datatables.net_buttons_2.4.1_js_datatables.buttons.min.js"></script>
-    <script src="~/js/cdnjs.cloudflare.com_ajax_libs_jszip_3.10.1_jszip.min.js"></script>
-    <script src="~/js/cdnjs.cloudflare.com_ajax_libs_pdfmake_0.1.53_pdfmake.min.js"></script>
-    <script src="~/js/cdnjs.cloudflare.com_ajax_libs_pdfmake_0.1.53_vfs_fonts.js"></script>*@
     <script src="~/js/cdn.datatables.net_1.13.5_js_jquery.datatables.min.js"></script>
 </head>
 <body>
@@ -35,12 +43,12 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="LeaveReport" asp-action="Index">Leave Report</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ManageEmp" asp-action="Index">Manage Employee</a>
-
-                     @*   <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Employees" asp-action="Create">Create Employees</a>
-                        </li>*@
-
+                            <div class="dropdown">
+                                <a class="nav-link text-dark dropbtn" onclick="myFunction()">Manage Employee</a>
+                                <div id="myDropdown" class="dropdown-content">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Employees" asp-action="Create">Create Employees</a>
+                                </div>
+                            </div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="EmpListReport" asp-action="Index">Employee Report</a>
@@ -75,7 +83,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted mb-0">
         <div class="container">
             &copy; 2023 - LMS - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>

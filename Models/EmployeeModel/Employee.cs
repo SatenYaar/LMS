@@ -16,5 +16,8 @@ namespace LMS.Models.EmployeeModel
         public DateTime ModifiedOn { get; set; }
         [Required(ErrorMessage = "IsActive cannot be blank")]
         public bool IsActive { get; set; }
+        [Required(ErrorMessage = "Username cannot be blank")]
+        public string Username { get; set; }
+
     }
 }

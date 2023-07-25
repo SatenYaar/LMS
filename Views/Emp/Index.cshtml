@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LMS.Models.EmployeeModel.Employee>
+﻿@model IEnumerable<LMS.Models.EmployeeModel.EmployeeModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -11,6 +11,9 @@
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.EmpId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Emp_Name)
@@ -39,6 +42,9 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.EmpId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Emp_Name)
@@ -73,7 +79,7 @@
 
         if (msg != null && msg != "") {
             alert(msg);
-            window.location.href = "@Url.Action("Index", "Employees")";
+            window.location.href = "@Url.Action("Index", "Emp")";
         }
     });
 </script><script src="~/js/code.jquery.com_jquery-3.7.0.js"></script>

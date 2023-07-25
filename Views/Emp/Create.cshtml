@@ -1,4 +1,4 @@
-﻿@model LMS.Models.EmployeeModel.Employee
+﻿@model LMS.Models.EmployeeModel.EmployeeModel
 
 @{
     ViewData["Title"] = "Create";
@@ -16,6 +16,11 @@
                 <input asp-for="EmpId" class="form-control" />
                 <span asp-validation-for="EmpId" class="text-danger"></span>
             </div>*@
+            <div class="form-group">
+                <label asp-for="Username" class="control-label"></label>
+                <input asp-for="Username" class="form-control" value="@ViewBag.UserName" readonly />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Emp_Name" class="control-label"></label>
                 <input asp-for="Emp_Name" class="form-control" />
@@ -66,7 +71,7 @@
         
         if (msg!=null && msg!="") {
             alert("User Details Inserted Successfully");
-            window.location.href = "@Url.Action("Index", "Employees")";
+            window.location.href = "@Url.Action("Index", "Emp")";
         }
     });
 </script>

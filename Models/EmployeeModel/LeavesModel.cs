@@ -3,7 +3,7 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
-    public class Leaves
+    public class LeavesModel
     {
         public int LeaveId { get; set; }
 

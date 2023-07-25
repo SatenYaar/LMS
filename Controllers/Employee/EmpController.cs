@@ -1,15 +1,15 @@
-﻿using LMS.Models.EmployeeModel;
+﻿
+using LMS.Models.EmployeeModel;
 using LMS.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.ComponentModel;
 using System.Web;
 
-namespace LMS.Controllers.Employees
+namespace LMS.Controllers.Employee
 {
     [Authorize]
-    public class EmployeesController : Controller
+    public class EmpController : Controller
     {
 
         public readonly IConfiguration _configuration;
@@ -18,8 +18,8 @@ namespace LMS.Controllers.Employees
         public static string? sBU;
         public static string? sUserCode;
 
-        public static List<Employee> Employees { get; set; }
-        public EmployeesController(IConfiguration configuration, IAPTService apiservice)
+        public static List<EmployeeModel> Employees { get; set; }
+        public EmpController(IConfiguration configuration, IAPTService apiservice)
         {
             _configuration = configuration;
             _apiservice = apiservice;
@@ -34,6 +34,8 @@ namespace LMS.Controllers.Employees
        
         public async Task<IActionResult> Index()
         {
+           
+
             GetBaseUrl();
             sUserCode = Convert.ToString(HttpUtility.ParseQueryString(Request.QueryString.ToString()).Get("UId"));
             if (string.IsNullOrEmpty(sUserCode))
@@ -46,18 +48,20 @@ namespace LMS.Controllers.Employees
             APIResponse response = await _apiservice.CalAPI(sBaseUrl, sTokenUrl);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                Employees = JsonConvert.DeserializeObject<List<Employee>>(response.Result);
+                Employees = JsonConvert.DeserializeObject<List<EmployeeModel>>(response.Result);
             }
             return View("Index", Employees);
         }
        // [AllowAnonymous]
         public IActionResult Create()
         {
+            ViewBag.UserName = User.Identity.Name;
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(Employee emp)
+        public async Task<IActionResult> Create(EmployeeModel emp)
         {
+
             GetBaseUrl();
             sUserCode = Convert.ToString(HttpUtility.ParseQueryString(Request.QueryString.ToString()).Get("UId"));
             if (string.IsNullOrEmpty(sUserCode))
@@ -82,7 +86,7 @@ namespace LMS.Controllers.Employees
         public async Task<IActionResult> Edit(int id)
         {
             GetBaseUrl();
-            Employee employee=new Employee();
+            EmployeeModel employee=new EmployeeModel();
             sUserCode = Convert.ToString(HttpUtility.ParseQueryString(Request.QueryString.ToString()).Get("UId"));
             if (string.IsNullOrEmpty(sUserCode))
             {
@@ -94,13 +98,13 @@ namespace LMS.Controllers.Employees
             APIResponse response = await _apiservice.CalAPI(sBaseUrl, sTokenUrl);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                employee = JsonConvert.DeserializeObject<Employee>(response.Result);
+                employee = JsonConvert.DeserializeObject<EmployeeModel>(response.Result);
 
             }
             return View(employee);
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(Employee emp)
+        public async Task<IActionResult> Edit(EmployeeModel emp)
         {
             GetBaseUrl();
             sUserCode = Convert.ToString(HttpUtility.ParseQueryString(Request.QueryString.ToString()).Get("UId"));
@@ -126,7 +130,7 @@ namespace LMS.Controllers.Employees
         public async Task<IActionResult> Details(int id)
         {
             GetBaseUrl();
-            Employee employee = new Employee();
+            EmployeeModel employee = new EmployeeModel();
             sUserCode = Convert.ToString(HttpUtility.ParseQueryString(Request.QueryString.ToString()).Get("UId"));
             if (string.IsNullOrEmpty(sUserCode))
             {
@@ -138,7 +142,7 @@ namespace LMS.Controllers.Employees
             APIResponse response = await _apiservice.CalAPI(sBaseUrl, sTokenUrl);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                employee = JsonConvert.DeserializeObject<Employee>(response.Result);
+                employee = JsonConvert.DeserializeObject<EmployeeModel>(response.Result);
 
             }
             return View(employee);
@@ -148,7 +152,7 @@ namespace LMS.Controllers.Employees
         public async Task<IActionResult> Delete(int id)
         {
             GetBaseUrl();
-            Employee employee = new Employee();
+            EmployeeModel employee = new EmployeeModel();
             sUserCode = Convert.ToString(HttpUtility.ParseQueryString(Request.QueryString.ToString()).Get("UId"));
             if (string.IsNullOrEmpty(sUserCode))
             {
@@ -160,7 +164,7 @@ namespace LMS.Controllers.Employees
             APIResponse response = await _apiservice.CalAPI(sBaseUrl, sTokenUrl);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                employee = JsonConvert.DeserializeObject<Employee>(response.Result);
+                employee = JsonConvert.DeserializeObject<EmployeeModel>(response.Result);
 
             }
             return View(employee);

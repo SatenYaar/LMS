@@ -46,7 +46,7 @@
                             <div class="dropdown">
                                 <a class="nav-link text-dark dropbtn" onclick="myFunction()">Manage Employee</a>
                                 <div id="myDropdown" class="dropdown-content">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Employees" asp-action="Create">Create Employees</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Emp" asp-action="Create">Create Employees</a>
                                 </div>
                             </div>
                         </li>
@@ -54,7 +54,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="EmpListReport" asp-action="Index">Employee Report</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ApplyLeave" asp-action="Index">Apply Leave</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Leaves" asp-action="Index">Apply Leave</a>
                         </li>
 
 
@@ -62,6 +62,8 @@
                 </div>
                 @if (User.Identity.IsAuthenticated)
                 {
+                    var userName = User.Identity.Name;
+                    ViewBag.UserName = userName; // Using ViewBag
                     <div class="navbar float-end">
                         <span>Welcome to</span><span class="text-success font-weight-bold p-2">@User.Identity.Name.ToUpper()</span><a class="btn btn-sm btn-danger font-weight-bold" asp-action="Logout" asp-controller="Account">Sign Out</a>
                     </div>

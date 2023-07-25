@@ -2,9 +2,8 @@
 
 namespace LMS.Models.EmployeeModel
 {
-    public class Employee
+    public class EmployeeModel
     {
-        
         public int EmpId { get; set; }
         [Required(ErrorMessage = "Name cannot be blank")]
         public string Emp_Name { get; set; }

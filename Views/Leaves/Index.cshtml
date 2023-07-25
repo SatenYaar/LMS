@@ -1,0 +1,79 @@
+﻿@model IEnumerable<LMS.Models.EmployeeModel.LeavesModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="CreateUpdate">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LeaveId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmpId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FromDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpToDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LeavesType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ApprovedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedOn)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    @*   <tbody>
+    @foreach (var item in Model) {
+    <tr>
+    <td>
+    @Html.DisplayFor(modelItem => item.LeaveId)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.EmpId)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.Username)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.FromDate)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.UpToDate)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.LeavesType)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.ApprovedBy)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.CreatedOn)
+    </td>
+
+    <td>
+    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+    </td>
+    </tr>
+    }
+    </tbody>*@
+</table>

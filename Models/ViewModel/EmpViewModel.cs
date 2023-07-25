@@ -5,22 +5,22 @@ namespace LMS.Models.ViewModel
     public class EmpViewModel
     {
         // Represents a single employee object.
-        public Employee Employee { get; set; }
+        public EmployeeModel.EmployeeModel Employee { get; set; }
 
         // Represents a collection of Employee objects.
-        public IEnumerable<Employee> EmployeesList { get; set; }
+        public IEnumerable<EmployeeModel.EmployeeModel> EmployeesList { get; set; }
 
         // Represents a single leaves object.
-        public Leaves Leaves { get; set; }
+        public LeavesModel Leaves { get; set; }
 
         // Represents a collection of Leaves objects.
-        public IEnumerable<Leaves> LeavesList { get; set; }
+        public IEnumerable<LeavesModel> LeavesList { get; set; }
 
         public EmpViewModel()
         {
             // Initialize the collections to avoid null reference exceptions.
-            EmployeesList = new List<Employee>();
-            LeavesList = new List<Leaves>();
+            EmployeesList = new List<EmployeeModel.EmployeeModel>();
+            LeavesList = new List<LeavesModel>();
         }
     }
 

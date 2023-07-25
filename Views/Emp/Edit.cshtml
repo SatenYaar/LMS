@@ -1,4 +1,4 @@
-﻿@model LMS.Models.EmployeeModel.Employee
+﻿@model LMS.Models.EmployeeModel.EmployeeModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -67,7 +67,7 @@
 
         if (msg != null && msg != "") {
             alert(msg);
-            window.location.href = "@Url.Action("Index", "Employees")";
+            window.location.href = "@Url.Action("Index", "Emp")";
         }
     });
 </script>

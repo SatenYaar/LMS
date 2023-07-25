@@ -9,9 +9,9 @@ namespace LMS.Service
     {
         public Task<APIResponse> CalAPI(string sUrl, string sTokenUrl);
 
-        public Task<APIResponse> PostAPI(string sUrl, string sTokenUrl,Employee data);
+        public Task<APIResponse> PostAPI(string sUrl, string sTokenUrl,EmployeeModel data);
 
-        public Task<APIResponse> PutAPI(string sUrl, string sTokenUrl, Employee data);
+        public Task<APIResponse> PutAPI(string sUrl, string sTokenUrl, EmployeeModel data);
 
         //SignUp
         public Task<APIResponse> SignUpPostAPI(string sUrl, string sTokenUrl, SignUpModel signUp);

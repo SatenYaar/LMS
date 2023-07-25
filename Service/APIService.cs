@@ -44,7 +44,7 @@ namespace LMS.Service
 			return getapiresponse;
 		}
 
-        public async Task<APIResponse> PostAPI(string sUrl, string sTokenUrl,Employee data)
+        public async Task<APIResponse> PostAPI(string sUrl, string sTokenUrl,EmployeeModel data)
         {
             APIResponse Postapiresponse = new APIResponse();
             try
@@ -75,7 +75,7 @@ namespace LMS.Service
             return Postapiresponse;
         }
 
-        public async Task<APIResponse> PutAPI(string sUrl, string sTokenUrl, Employee data)
+        public async Task<APIResponse> PutAPI(string sUrl, string sTokenUrl, EmployeeModel data)
         {
             APIResponse Postapiresponse = new APIResponse();
             try

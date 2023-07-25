@@ -1,0 +1,60 @@
+﻿@model LMS.Models.ViewModel.EmpViewModel
+
+@{
+    ViewData["Title"] = "CreateUpdate";
+}
+
+<h1>CreateUpdate</h1>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateUpdate">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Employee.EmpId" class="control-label"></label>
+                <input asp-for="Employee.EmpId" class="form-control" />
+                <span asp-validation-for="Employee.EmpId" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Leaves.Username" class="control-label">Username</label>
+                <input asp-for="Leaves.Username" class="form-control" value="@ViewBag.UserName" readonly />
+                <span asp-validation-for="Leaves.Username" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Leaves.FromDate" class="control-label"></label>
+                <input type="date" asp-for="Leaves.FromDate" class="form-control" />
+                <span asp-validation-for="Leaves.FromDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Leaves.UpToDate" class="control-label"></label>
+                <input type="date" asp-for="Leaves.UpToDate" class="form-control" />
+                <span asp-validation-for="Leaves.UpToDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Leaves.LeavesType" class="control-label">Leaves Type</label>
+                <select asp-for="Leaves.LeavesType" class="form-control">
+                    <option value="">--Select--</option>
+                    <option value="ML">Mediacl Leave</option>
+                    <option value="PL">Personal Leave</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

@@ -1,4 +1,4 @@
-﻿@model LMS.Models.ViewModel.EmpViewModel
+﻿@model LMS.Models.EmployeesModels.LeavesModel
 
 @{
     ViewData["Title"] = "CreateUpdate";
@@ -6,45 +6,59 @@
 
 <h1>CreateUpdate</h1>
 
-
+<h4>LeavesModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="CreateUpdate">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div class="form-group">
-                <label asp-for="Employee.EmpId" class="control-label"></label>
-                <input asp-for="Employee.EmpId" class="form-control" />
-                <span asp-validation-for="Employee.EmpId" class="text-danger"></span>
-            </div>
-
+            <input asp-for="LeaveId" hidden class="form-control" />
 
             <div class="form-group">
-                <label asp-for="Leaves.Username" class="control-label">Username</label>
-                <input asp-for="Leaves.Username" class="form-control" value="@ViewBag.UserName" readonly />
-                <span asp-validation-for="Leaves.Username" class="text-danger"></span>
+                <label asp-for="EmpId" class="control-label"></label>
+                <input asp-for="EmpId" class="form-control" />
+                <span asp-validation-for="EmpId" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Leaves.FromDate" class="control-label"></label>
-                <input type="date" asp-for="Leaves.FromDate" class="form-control" />
-                <span asp-validation-for="Leaves.FromDate" class="text-danger"></span>
+                <label asp-for="Username" class="control-label"></label>
+
+                @if (ViewBag.UserName == "Admin")
+                {
+                        <input asp-for="Username" class="form-control" value="@ViewBag.UserName" />
+                }
+                else
+                {
+                        <input asp-for="Username" class="form-control" value="@ViewBag.UserName" readonly />
+                }
+                <span asp-validation-for="Username" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Leaves.UpToDate" class="control-label"></label>
-                <input type="date" asp-for="Leaves.UpToDate" class="form-control" />
-                <span asp-validation-for="Leaves.UpToDate" class="text-danger"></span>
+                <label asp-for="FromDate" class="control-label"></label>
+                <input type="date" asp-for="FromDate" class="form-control" />
+                <span asp-validation-for="FromDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UpToDate" class="control-label"></label>
+                <input type="date" asp-for="UpToDate" class="form-control" />
+                <span asp-validation-for="UpToDate" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Leaves.LeavesType" class="control-label">Leaves Type</label>
-                <select asp-for="Leaves.LeavesType" class="form-control">
+                <label asp-for="LeavesType" class="control-label">Leaves Type</label>
+                <select asp-for="LeavesType" class="form-control custom-select">
                     <option value="">--Select--</option>
-                    <option value="ML">Mediacl Leave</option>
-                    <option value="PL">Personal Leave</option>
+                    <option value="1">Mediacl Leave</option>
+                    <option value="2">Personal Leave</option>
                 </select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CreatedOn" class="control-label"></label>
+                <input type="date" asp-for="CreatedOn" class="form-control" />
+                <span asp-validation-for="CreatedOn" class="text-danger"></span>
             </div>
 
             <div class="form-group">

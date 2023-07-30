@@ -1,7 +1,9 @@
-﻿namespace LMS.Models.EmployeeModel
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace LMS.Models.EmployeesModels
 {
-    using System;
-    using System.ComponentModel.DataAnnotations;
+
 
     public class LeavesModel
     {
@@ -21,9 +23,7 @@
 
         [Required(ErrorMessage = "Leaves type is required.")]
         public string LeavesType { get; set; }
-
-        [Required(ErrorMessage = "Approved by is required.")]
-        public string ApprovedBy { get; set; }
+        public string? ApprovedBy { get; set; }
 
         public DateTime CreatedOn { get; set; }
 

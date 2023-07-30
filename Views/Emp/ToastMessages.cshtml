@@ -1,0 +1,35 @@
+﻿@* _ToastMessages.cshtml *@
+@{
+    var toastMessage = Context.Session.GetString("ToastMessage");
+    var toastType = Context.Session.GetString("ToastType");
+}
+
+@if (!string.IsNullOrEmpty(toastMessage))
+{
+    <script>
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-bottom-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+
+        var toastType = '@toastType';
+        if (toastType === 'error') {
+            toastr.error('@toastMessage');
+        } else {
+            toastr.success('@toastMessage');
+        }
+    </script>
+}

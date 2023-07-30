@@ -10,4 +10,5 @@ $(document).ready(function () {
         //dom: 'Bfrtip',
         //buttons: ['excel', 'pdf', 'print'],
     
+    new DataTable('#tblLeavesList');
 });

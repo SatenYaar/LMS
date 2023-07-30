@@ -1,6 +1,4 @@
-﻿using Google.Apis.Admin.Directory.directory_v1.Data;
-using LMS.Models.EmployeeModel;
-using LMS.Models.ViewModel;
+﻿using LMS.Models.ViewModel;
 using LMS.Service;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -58,20 +56,21 @@ namespace LMS.Controllers.Authantication
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     mess = response.Result;
-                    TempData["result"] = mess;
-                    // return RedirectToAction("Login"); // Redirect to the login page to show the success message
-                    return View();
+                    HttpContext.Session.SetString("ToastMessage", "User Created Successfully..Now you can Login");
+
+                   return RedirectToAction("Login"); 
                 }
                 else
                 {
-                    TempData["error"] = "An error occurred during signup.";
+                    HttpContext.Session.SetString("ToastMessage", "SignUp failed. Due to Technical Error.");
+                    HttpContext.Session.SetString("ToastType", "error");
                     return View();
                 }
             }
             else
             {
-                TempData["error"] = "An error occurred during signup.";
-                // If the model state is invalid, return to the signup page with error messages.
+                HttpContext.Session.SetString("ToastMessage", "User Creation failed. Please check your credentials.");
+                HttpContext.Session.SetString("ToastType", "error"); 
                 return View();
             }
         }
@@ -109,28 +108,26 @@ namespace LMS.Controllers.Authantication
                         var principal = new ClaimsPrincipal(identity);
                         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-                        // Since you have stored the username in the session, you can remove this line:
                         HttpContext.Session.SetString("Username", login.Username);
+                        HttpContext.Session.SetString("ToastMessage", "Login successful!");
 
-                        TempData["SuccessMessage"] = "Login successfully.";
-                        return View();
+                        return RedirectToAction("Index", "Emp");
                     }
                     else
                     {
-                        TempData["ErrorMessage"] = "Invalid username or password.";
+                        HttpContext.Session.SetString("ToastMessage", "Login failed. Please check your credentials.");
+                        HttpContext.Session.SetString("ToastType", "error");
                         return View(login);
                     }
                 }
                 else
                 {
-                    // Handle the error response from the API appropriately
                     TempData["ErrorMessage"] = "An error occurred during login.";
                     return View(login);
                 }
             }
             else
             {
-                // Model state is not valid, return the view with the login model to display validation errors.
                 return View(login);
             }
         }

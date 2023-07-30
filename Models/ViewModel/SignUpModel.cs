@@ -17,7 +17,7 @@ namespace LMS.Models.ViewModel
         public string Mobile { get; set; }
 
         [Required(ErrorMessage = "Password is required.")]
-        [StringLength(8, ErrorMessage = "Password must be 8 characters long.", MinimumLength = 8)]
+        [StringLength(20, ErrorMessage = "Password must be 8 characters long.", MinimumLength = 8)]
         public string Password { get; set; }
 
         [Compare("Password", ErrorMessage = "Passwords do not match.")]
@@ -25,8 +25,9 @@ namespace LMS.Models.ViewModel
         public string ConfirmPassword { get; set; }
 
         public bool IsActive { get; set; }
+        public string? UserType { get; set; }
 
-     
+
     }
 }
 

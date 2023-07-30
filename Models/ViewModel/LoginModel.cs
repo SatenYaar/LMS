@@ -10,7 +10,7 @@ namespace LMS.Models.ViewModel
         public string Username { get; set; }
 
         [Required(ErrorMessage = "Password is required.")]
-        [StringLength(8, ErrorMessage = "Password must be 8 characters long.", MinimumLength = 8)]
+        [StringLength(20, ErrorMessage = "Password must be 8 characters long.", MinimumLength = 8)]
         public string Password { get; set; }
 
    

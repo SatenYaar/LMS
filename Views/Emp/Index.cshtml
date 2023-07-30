@@ -1,4 +1,7 @@
-﻿@model IEnumerable<LMS.Models.EmployeeModel.EmployeeModel>
+﻿@model IEnumerable<LMS.Models.EmployeesModels.EmpModel>
+<link href="~/css/cdnjs.cloudflare.com_ajax_libs_toastr.js_latest_toastr.min.css" rel="stylesheet" />
+<script src="~/js/cdnjs.cloudflare.com_ajax_libs_toastr.js_latest_toastr.min.js"></script>
+<script src="~/js/code.jquery.com_jquery-3.7.0.js"></script>
 
 @{
     ViewData["Title"] = "Index";
@@ -6,80 +9,82 @@
 
 <h1>Employees List</h1>
 
-<table id="tblEmpList" class="display" style="width:100%">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.EmpId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Username)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Emp_Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedOn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModifiedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModifiedOn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsActive)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<div class="">
+    @Html.Partial("ToastMessages")
+</div>
+@if (Model == null || !Model.Any())
+{
+    <p>No employees found.</p>
+}
+else
+{
+    <table id="tblEmpList" class="display" style="width:100%">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmpId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Username)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Emp_Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedBy)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedOn)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ModifiedBy)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ModifiedOn)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsActive)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new {  id=item.EmpId }) |
-                    @Html.ActionLink("Details", "Details", new { id=item.EmpId  }) |
-                    @Html.ActionLink("Delete", "Delete", new { id=item.EmpId  })
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmpId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Username)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Emp_Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreatedBy)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreatedOn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ModifiedBy)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ModifiedOn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsActive)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
-<script type="text/javascript">
-    $(function () {
-        var msg = '@ViewData["delresult"]';
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EmpId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Username)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Emp_Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedBy)
+                    </td>
+                    <td>
+                        @item.CreatedOn.ToString("dd/MM/yyyy")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ModifiedBy)
+                    </td>
+                    <td>
+                        @item.ModifiedOn.ToString("dd/MM/yyyy")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsActive)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.EmpId }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.EmpId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.EmpId })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
-        if (msg != null && msg != "") {
-            alert(msg);
-            window.location.href = "@Url.Action("Index", "Emp")";
-        }
-    });
-</script><script src="~/js/code.jquery.com_jquery-3.7.0.js"></script>
+

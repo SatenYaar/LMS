@@ -1,10 +1,20 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+    </style>
     <script>
         function myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
         }
+
+        function myFunction1() {
+            document.getElementById("myDropdown1").classList.toggle("show");
+        }
+
         window.onclick = function (event) {
             if (!event.target.matches('.dropbtn')) {
                 var dropdowns = document.getElementsByClassName("dropdown-content");
@@ -25,6 +35,11 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/LMS.styles.css" asp-append-version="true" />
     <link href="~/css/cdn.datatables.net_1.13.5_css_jquery.datatables.min.css" rel="stylesheet" />
+    <link href="~/css/cdnjs.cloudflare.com_ajax_libs_font-awesome_6.4.0_css_all.min.css" rel="stylesheet" />
+    <link href="~/css/cdnjs.cloudflare.com_ajax_libs_toastr.js_latest_toastr.min.css" rel="stylesheet" />
+    <script src="~/js/cdnjs.cloudflare.com_ajax_libs_toastr.js_latest_toastr.min.js"></script>
+
+
     <script src="~/js/code.jquery.com_jquery-3.7.0.js"></script>
     <script src="~/js/cdn.datatables.net_1.13.5_js_jquery.datatables.min.js"></script>
 </head>
@@ -47,6 +62,7 @@
                                 <a class="nav-link text-dark dropbtn" onclick="myFunction()">Manage Employee</a>
                                 <div id="myDropdown" class="dropdown-content">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Emp" asp-action="Create">Create Employees</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Emp" asp-action="Index">Employees List</a>
                                 </div>
                             </div>
                         </li>
@@ -54,7 +70,13 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="EmpListReport" asp-action="Index">Employee Report</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Leaves" asp-action="Index">Apply Leave</a>
+                            <div class="dropdown">
+                                <a class="nav-link text-dark dropbtn" onclick="myFunction1()">Manage Leaves</a>
+                                <div id="myDropdown1" class="dropdown-content">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Leaves" asp-action="CreateUpdate">Apply Leave</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Leaves" asp-action="Index">Leaves Details</a>
+                                </div>
+                            </div>
                         </li>
 
 
@@ -65,7 +87,7 @@
                     var userName = User.Identity.Name;
                     ViewBag.UserName = userName; // Using ViewBag
                     <div class="navbar float-end">
-                        <span>Welcome to</span><span class="text-success font-weight-bold p-2">@User.Identity.Name.ToUpper()</span><a class="btn btn-sm btn-danger font-weight-bold" asp-action="Logout" asp-controller="Account">Sign Out</a>
+                        <span>Welcome to</span><span class="text-success font-weight-bold p-2">@User.Identity.Name.ToUpper()</span><a class="btn btn-sm btn-danger font-weight-bold" asp-action="Logout" asp-controller="Account">LogOut</a>
                     </div>
                 }
                 else

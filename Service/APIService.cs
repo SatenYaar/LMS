@@ -1,17 +1,12 @@
 ﻿
-using LMS.Models.EmployeeModel;
+using LMS.Models.EmployeesModels;
 using LMS.Models.ViewModel;
-using LMS.Service;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Collections;
-using System.Collections.Generic;
 using System.Net.Http.Headers;
 
 namespace LMS.Service
 {
-	public class APIService:IAPTService
+    public class APIService:IAPTService
 	{
 		public async Task<APIResponse> CalAPI(string sUrl, string sTokenUrl)
 		{
@@ -44,7 +39,7 @@ namespace LMS.Service
 			return getapiresponse;
 		}
 
-        public async Task<APIResponse> PostAPI(string sUrl, string sTokenUrl,EmployeeModel data)
+        public async Task<APIResponse> PostAPI(string sUrl, string sTokenUrl,EmpModel data)
         {
             APIResponse Postapiresponse = new APIResponse();
             try
@@ -75,7 +70,7 @@ namespace LMS.Service
             return Postapiresponse;
         }
 
-        public async Task<APIResponse> PutAPI(string sUrl, string sTokenUrl, EmployeeModel data)
+        public async Task<APIResponse> PutAPI(string sUrl, string sTokenUrl, EmpModel data)
         {
             APIResponse Postapiresponse = new APIResponse();
             try
@@ -167,5 +162,35 @@ namespace LMS.Service
             return Postapiresponse;
         }
 
+        public async Task<APIResponse> LeavePostAPI(string sUrl, string sTokenUrl, LeavesModel viewModelData)
+        {
+            APIResponse Postapiresponse = new APIResponse();
+            try
+            {
+                HttpClientHandler clientHandler = new HttpClientHandler();
+                clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+                using (HttpClient client = new HttpClient(clientHandler))
+                {
+                    HttpResponseMessage message = await client.GetAsync(sTokenUrl);
+                    if (message.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        string sToken = await message.Content.ReadAsStringAsync();
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sToken);
+                        HttpResponseMessage response = await client.PostAsJsonAsync(sUrl, viewModelData);
+                        if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                        {
+                            string apiResponse = await response.Content.ReadAsStringAsync();
+                            Postapiresponse = JsonConvert.DeserializeObject<APIResponse>(apiResponse);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Postapiresponse.Result = ex.Message.ToString();
+                Postapiresponse.StatusCode = System.Net.HttpStatusCode.NotFound;
+            }
+            return Postapiresponse;
+        }
     }
 }

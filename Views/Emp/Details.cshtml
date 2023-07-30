@@ -1,5 +1,7 @@
-﻿@model LMS.Models.EmployeeModel.EmployeeModel
-
+﻿@model LMS.Models.EmployeesModels.EmpModel
+<link href="~/css/cdnjs.cloudflare.com_ajax_libs_toastr.js_latest_toastr.min.css" rel="stylesheet" />
+<script src="~/js/cdnjs.cloudflare.com_ajax_libs_toastr.js_latest_toastr.min.js"></script>
+<script src="~/js/code.jquery.com_jquery-3.7.0.js"></script>
 @{
     ViewData["Title"] = "Details";
 }
@@ -55,6 +57,9 @@
     </dl>
 </div>
 <div>
+    <div class="">
+        @Html.Partial("ToastMessages")
+    </div>
     @Html.ActionLink("Edit", "Edit", new {  id = Model.EmpId }) |
     <a asp-action="Index">Back to List</a>
 </div>

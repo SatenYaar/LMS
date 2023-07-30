@@ -1,5 +1,5 @@
 ﻿
-using LMS.Models.EmployeeModel;
+using LMS.Models.EmployeesModels;
 using LMS.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +18,7 @@ namespace LMS.Controllers.Employee
         public static string? sBU;
         public static string? sUserCode;
 
-        public static List<EmployeeModel> Employees { get; set; }
+        public static List<EmpModel> Employees { get; set; }
         public EmpController(IConfiguration configuration, IAPTService apiservice)
         {
             _configuration = configuration;
@@ -31,11 +31,12 @@ namespace LMS.Controllers.Employee
             sBU = sBaseUrl;
             return sBaseUrl;
         }
-       
+
         public async Task<IActionResult> Index()
         {
-           
-
+            string sBaseUrl = string.Empty;
+            ViewBag.UserName = User.Identity.Name;
+            var usertype = ViewBag.UserName;
             GetBaseUrl();
             sUserCode = Convert.ToString(HttpUtility.ParseQueryString(Request.QueryString.ToString()).Get("UId"));
             if (string.IsNullOrEmpty(sUserCode))
@@ -44,22 +45,36 @@ namespace LMS.Controllers.Employee
 
             }
             string sTokenUrl = sBU + "GenerateToken" + "?sUsrCode=" + sUserCode + "";
-            string sBaseUrl = sBU + "api/Employee/GetAllEmployee?";
+            if (usertype == "Admin")
+            {
+                sBaseUrl = sBU + "api/Employee/GetAllEmployee?";
+            }
+            else
+            {
+
+                sBaseUrl = sBU + "api/Employee/GetAllEmployee?&Username=" + usertype + "";
+            }
             APIResponse response = await _apiservice.CalAPI(sBaseUrl, sTokenUrl);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                Employees = JsonConvert.DeserializeObject<List<EmployeeModel>>(response.Result);
+                Employees = JsonConvert.DeserializeObject<List<EmpModel>>(response.Result);
+                return View("Index", Employees);
+
             }
-            return View("Index", Employees);
+            else
+            {
+                return View();
+
+            }
         }
-       // [AllowAnonymous]
+        // [AllowAnonymous]
         public IActionResult Create()
         {
             ViewBag.UserName = User.Identity.Name;
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(EmployeeModel emp)
+        public async Task<IActionResult> Create(EmpModel emp)
         {
 
             GetBaseUrl();
@@ -75,18 +90,24 @@ namespace LMS.Controllers.Employee
             APIResponse response = await _apiservice.PostAPI(sBaseUrl, sTokenUrl, emp);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-
                 mess = response.Result;
-                ViewData["result"] = mess;
+                HttpContext.Session.SetString("ToastMessage", mess);
+                return RedirectToAction("Index");
             }
-            return View();
+            else
+            {
+                HttpContext.Session.SetString("ToastMessage", "Employee Cration failed. Please check your credentials.");
+                HttpContext.Session.SetString("ToastType", "error");
+                return View();
+            }
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             GetBaseUrl();
-            EmployeeModel employee=new EmployeeModel();
+            EmpModel employee = new EmpModel();
             sUserCode = Convert.ToString(HttpUtility.ParseQueryString(Request.QueryString.ToString()).Get("UId"));
             if (string.IsNullOrEmpty(sUserCode))
             {
@@ -94,17 +115,21 @@ namespace LMS.Controllers.Employee
 
             }
             string sTokenUrl = sBU + "GenerateToken" + "?sUsrCode=" + sUserCode + "";
-            string sBaseUrl = sBU + "api/Employee/GetEmployeeById?&iEmpId="+id+"";
+            string sBaseUrl = sBU + "api/Employee/GetEmployeeById?&iEmpId=" + id + "";
             APIResponse response = await _apiservice.CalAPI(sBaseUrl, sTokenUrl);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                employee = JsonConvert.DeserializeObject<EmployeeModel>(response.Result);
+                employee = JsonConvert.DeserializeObject<EmpModel>(response.Result);
+                return View(employee);
 
             }
-            return View(employee);
+            else
+            {
+                return View();
+            }
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(EmployeeModel emp)
+        public async Task<IActionResult> Edit(EmpModel emp)
         {
             GetBaseUrl();
             sUserCode = Convert.ToString(HttpUtility.ParseQueryString(Request.QueryString.ToString()).Get("UId"));
@@ -121,16 +146,24 @@ namespace LMS.Controllers.Employee
             {
 
                 mess = response.Result;
-                ViewData["result"] = mess;
+
+                HttpContext.Session.SetString("ToastMessage", mess);
+                return RedirectToAction("Index");
             }
-            return View();
+            else
+            {
+                HttpContext.Session.SetString("ToastMessage", "Employee Updation failed. Please check your credentials.");
+                HttpContext.Session.SetString("ToastType", "error");
+                return View();
+            }
+
         }
 
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
             GetBaseUrl();
-            EmployeeModel employee = new EmployeeModel();
+            EmpModel employee = new EmpModel();
             sUserCode = Convert.ToString(HttpUtility.ParseQueryString(Request.QueryString.ToString()).Get("UId"));
             if (string.IsNullOrEmpty(sUserCode))
             {
@@ -142,17 +175,21 @@ namespace LMS.Controllers.Employee
             APIResponse response = await _apiservice.CalAPI(sBaseUrl, sTokenUrl);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                employee = JsonConvert.DeserializeObject<EmployeeModel>(response.Result);
+                employee = JsonConvert.DeserializeObject<EmpModel>(response.Result);
+                return View(employee);
 
             }
-            return View(employee);
+            else
+            {
+                return View();
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
             GetBaseUrl();
-            EmployeeModel employee = new EmployeeModel();
+            EmpModel employee = new EmpModel();
             sUserCode = Convert.ToString(HttpUtility.ParseQueryString(Request.QueryString.ToString()).Get("UId"));
             if (string.IsNullOrEmpty(sUserCode))
             {
@@ -164,13 +201,17 @@ namespace LMS.Controllers.Employee
             APIResponse response = await _apiservice.CalAPI(sBaseUrl, sTokenUrl);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                employee = JsonConvert.DeserializeObject<EmployeeModel>(response.Result);
+                employee = JsonConvert.DeserializeObject<EmpModel>(response.Result);
+                return View(employee);
 
             }
-            return View(employee);
+            else
+            {
+                return View();
+            }
         }
         [HttpPost]
-        public async Task<IActionResult> Delete(int id,string data)
+        public async Task<IActionResult> Delete(int id, string data)
         {
             GetBaseUrl();
             sUserCode = Convert.ToString(HttpUtility.ParseQueryString(Request.QueryString.ToString()).Get("UId"));
@@ -186,10 +227,16 @@ namespace LMS.Controllers.Employee
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 mess = response.Result;
-                ViewData["delresult"] = mess;
+                HttpContext.Session.SetString("ToastMessage", mess);
+                return View("Index", Employees);
+            }
+            else
+            {
+                HttpContext.Session.SetString("ToastMessage", "Employee Cration failed. Please check your credentials.");
+                HttpContext.Session.SetString("ToastType", "error");
+                return View();
 
             }
-            return View("Index", Employees);
         }
 
     }
